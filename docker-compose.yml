@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: visto-db
+    environment:
+      POSTGRES_DB: visto
+      POSTGRES_USER: visto
+      POSTGRES_PASSWORD: visto123
+    ports:
+      - "5432:5432"
+    volumes:
+      - visto-data:/var/lib/postgresql/data
+
+volumes:
+  visto-data:
