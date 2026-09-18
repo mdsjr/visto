@@ -23,7 +23,7 @@ class ConhecimentoControllerTest extends IntegracaoTestBase {
         Map<String, Object> corpo = new HashMap<>();
         corpo.put("titulo", titulo);
         corpo.put("problema", problema);
-        corpo.put("cenario", "Windows 11, VPN corporativa");
+        corpo.put("cenario", "Windows 11, notebook corporativo");
         corpo.put("itensAvaliados", "Cabo, driver, DNS");
         corpo.put("procedimento", "1. Reiniciar o adaptador\n2. Limpar cache DNS");
         if (tags != null) {
