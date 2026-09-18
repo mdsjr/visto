@@ -140,7 +140,7 @@ public class ChamadoService {
                 .orElseThrow(() -> RecursoNaoEncontradoException.de("Chamado", id));
     }
 
-    private Chamado obterComPermissao(Long id, Usuario usuario) {
+    Chamado obterComPermissao(Long id, Usuario usuario) {
         Chamado chamado = obter(id);
         if (!usuario.isTecnicoOuAdmin() && !chamado.isSolicitante(usuario)) {
             // 404 em vez de 403 para não revelar a existência de chamados de terceiros

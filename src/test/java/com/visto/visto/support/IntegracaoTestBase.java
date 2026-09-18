@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.visto.visto.domain.usuario.PerfilUsuario;
 import com.visto.visto.repository.ArtigoConhecimentoRepository;
 import com.visto.visto.repository.ChamadoRepository;
+import com.visto.visto.repository.ComentarioChamadoRepository;
 import com.visto.visto.repository.UsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,13 @@ public abstract class IntegracaoTestBase {
     @Autowired
     protected ArtigoConhecimentoRepository artigoRepository;
 
+    @Autowired
+    protected ComentarioChamadoRepository comentarioRepository;
+
     @BeforeEach
     void limparBanco() {
         artigoRepository.deleteAll();
+        comentarioRepository.deleteAll();
         chamadoRepository.deleteAll();
         usuarioRepository.deleteAll();
     }

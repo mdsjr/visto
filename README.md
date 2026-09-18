@@ -95,7 +95,7 @@ A documentação Swagger em `http://localhost:8080/swagger-ui.html`
 | Link público de acompanhamento do chamado | ✅ Pronto |
 | Base de conhecimento (problema, cenário, itens avaliados, procedimento + busca) | ✅ Pronto |
 | Documentação Swagger / OpenAPI | ✅ Pronto |
-| Comunicação usuário ↔ técnico no chamado | 🔜 Planejado |
+| Comunicação usuário ↔ técnico no chamado (comentários + notas internas) | ✅ Pronto |
 | Alerta de dois técnicos no mesmo chamado | 🔜 Planejado |
 | Controle de duplicados / sintomas similares | 🔜 Planejado |
 | Notificações por e-mail | 🔜 Planejado |
@@ -114,6 +114,7 @@ A documentação Swagger em `http://localhost:8080/swagger-ui.html`
 | PATCH | `/chamados/{id}/assumir` | técnico/admin | Assume o chamado |
 | PATCH | `/chamados/{id}/status` | técnico/admin (usuário só FECHADO) | Muda status |
 | PATCH | `/chamados/{id}/prioridade` | técnico/admin | Muda prioridade e recalcula SLA |
+| GET/POST | `/chamados/{id}/comentarios` | solicitante ou técnico | Conversa no chamado (`interno` = nota só p/ técnicos) |
 | GET | `/public/chamados/{codigo}` | público | Acompanhamento sem login |
 | GET/POST | `/conhecimento` | autenticado / técnico | Busca e cria artigos |
 | GET/PUT/DELETE | `/conhecimento/{id}` | autenticado / autor ou admin | Detalhe, edição, exclusão |
