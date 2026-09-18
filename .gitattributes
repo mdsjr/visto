@@ -1,2 +1,10 @@
+# Normaliza quebra de linha no repositório (LF) independente do SO — evita diffs falsos entre Windows e Linux
+* text=auto
+
 /mvnw text eol=lf
 *.cmd text eol=crlf
+*.bat text eol=crlf
+
+*.jar binary
+*.png binary
+*.jpg binary
