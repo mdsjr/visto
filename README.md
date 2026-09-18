@@ -90,13 +90,45 @@ A documentação Swagger em `http://localhost:8080/swagger-ui.html`
 
 | Funcionalidade | Status |
 |---|---|
-| Base de conhecimento | 🔜 Planejado |
-| Painel do técnico | 🔜 Planejado |
-| Comunicação entre técnicos | 🔜 Planejado |
-| Controle de duplicados | 🔜 Planejado |
-| Priorização por SLA | 🔜 Planejado |
+| Autenticação JWT (cadastro, login, perfis ADMIN/TECNICO/USUARIO) | ✅ Pronto |
+| Chamados: abertura, fila por criticidade, assumir, status, prioridade/SLA | ✅ Pronto |
+| Link público de acompanhamento do chamado | ✅ Pronto |
+| Base de conhecimento (problema, cenário, itens avaliados, procedimento + busca) | ✅ Pronto |
+| Documentação Swagger / OpenAPI | ✅ Pronto |
+| Comunicação usuário ↔ técnico no chamado | 🔜 Planejado |
+| Alerta de dois técnicos no mesmo chamado | 🔜 Planejado |
+| Controle de duplicados / sintomas similares | 🔜 Planejado |
 | Notificações por e-mail | 🔜 Planejado |
-| Autenticação JWT | 🔜 Planejado |
+| Painel do técnico (front-end) | 🔜 Planejado |
+
+## Endpoints principais
+
+| Método | Rota | Quem | Descrição |
+|---|---|---|---|
+| POST | `/auth/register` | público | Cadastro (retorna token) |
+| POST | `/auth/login` | público | Login (retorna token) |
+| GET | `/auth/me` | autenticado | Dados do usuário logado |
+| POST | `/chamados` | autenticado | Abre chamado |
+| GET | `/chamados` | autenticado | Fila (técnico/admin) ou meus chamados (usuário) |
+| GET | `/chamados/{id}` | autenticado | Detalhe |
+| PATCH | `/chamados/{id}/assumir` | técnico/admin | Assume o chamado |
+| PATCH | `/chamados/{id}/status` | técnico/admin (usuário só FECHADO) | Muda status |
+| PATCH | `/chamados/{id}/prioridade` | técnico/admin | Muda prioridade e recalcula SLA |
+| GET | `/public/chamados/{codigo}` | público | Acompanhamento sem login |
+| GET/POST | `/conhecimento` | autenticado / técnico | Busca e cria artigos |
+| GET/PUT/DELETE | `/conhecimento/{id}` | autenticado / autor ou admin | Detalhe, edição, exclusão |
+
+Envie o token no header `Authorization: Bearer <token>`.
+
+> **Nota (MVP):** o campo `perfil` (`ADMIN`, `TECNICO`, `USUARIO`) pode ser informado no cadastro para facilitar os testes. Antes de ir para produção, isso deve ser restrito a um admin.
+
+### Rodando os testes
+
+```bash
+mvn verify
+```
+
+Os testes usam o profile `test` com banco H2 em memória — não precisam do Docker.
 
 ## Contribuindo
 
