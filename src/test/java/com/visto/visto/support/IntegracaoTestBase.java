@@ -7,6 +7,7 @@ import com.visto.visto.repository.ArtigoConhecimentoRepository;
 import com.visto.visto.repository.ChamadoRepository;
 import com.visto.visto.repository.ComentarioChamadoRepository;
 import com.visto.visto.repository.UsuarioRepository;
+import com.visto.visto.repository.VisualizacaoChamadoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -48,10 +49,14 @@ public abstract class IntegracaoTestBase {
     @Autowired
     protected ComentarioChamadoRepository comentarioRepository;
 
+    @Autowired
+    protected VisualizacaoChamadoRepository visualizacaoRepository;
+
     @BeforeEach
     void limparBanco() {
         artigoRepository.deleteAll();
         comentarioRepository.deleteAll();
+        visualizacaoRepository.deleteAll();
         chamadoRepository.deleteAll();
         usuarioRepository.deleteAll();
     }

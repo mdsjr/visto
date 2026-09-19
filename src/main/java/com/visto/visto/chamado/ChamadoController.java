@@ -55,6 +55,14 @@ public class ChamadoController {
         return ResponseEntity.ok(chamadoService.buscar(id, usuario));
     }
 
+    @DeleteMapping("/{id}/visualizacao")
+    @PreAuthorize("hasAnyRole('TECNICO', 'ADMIN')")
+    @Operation(summary = "Técnico saiu da tela do chamado (encerra o aviso de atendimento simultâneo)")
+    public ResponseEntity<Void> sair(@PathVariable Long id, @AuthenticationPrincipal Usuario tecnico) {
+        chamadoService.sairDoChamado(id, tecnico);
+        return ResponseEntity.noContent().build();
+    }
+
     @PatchMapping("/{id}/assumir")
     @PreAuthorize("hasAnyRole('TECNICO', 'ADMIN')")
     @Operation(summary = "Técnico assume o chamado (passa para EM_ATENDIMENTO)")

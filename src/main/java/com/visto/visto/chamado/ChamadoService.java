@@ -21,12 +21,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ChamadoService {
 
     private final ChamadoRepository chamadoRepository;
+    private final VisualizacaoService visualizacaoService;
 
     @Transactional
     public ChamadoResponse abrir(AbrirChamadoRequest request, Usuario solicitante) {
@@ -63,10 +65,25 @@ public class ChamadoService {
         return pagina.map(ChamadoResponse::de);
     }
 
-    @Transactional(readOnly = true)
+    /**
+     * Detalhe do chamado. Para técnicos/admins, registra que o chamado está aberto por ele
+     * e devolve o alerta caso outro técnico também esteja nele agora.
+     */
+    @Transactional
     public ChamadoResponse buscar(Long id, Usuario usuario) {
         Chamado chamado = obterComPermissao(id, usuario);
-        return ChamadoResponse.de(chamado);
+        if (!usuario.isTecnicoOuAdmin()) {
+            return ChamadoResponse.de(chamado);
+        }
+        List<String> outros = visualizacaoService.registrarERetornarOutros(chamado, usuario);
+        return ChamadoResponse.de(chamado, outros);
+    }
+
+    /** Técnico fechou a tela do chamado. */
+    @Transactional
+    public void sairDoChamado(Long id, Usuario tecnico) {
+        obter(id);
+        visualizacaoService.sair(id, tecnico);
     }
 
     @Transactional(readOnly = true)

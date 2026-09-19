@@ -96,7 +96,7 @@ A documentação Swagger em `http://localhost:8080/swagger-ui.html`
 | Base de conhecimento (problema, cenário, itens avaliados, procedimento + busca) | ✅ Pronto |
 | Documentação Swagger / OpenAPI | ✅ Pronto |
 | Comunicação usuário ↔ técnico no chamado (comentários + notas internas) | ✅ Pronto |
-| Alerta de dois técnicos no mesmo chamado | 🔜 Planejado |
+| Alerta de dois técnicos no mesmo chamado | ✅ Pronto |
 | Controle de duplicados / sintomas similares | 🔜 Planejado |
 | Notificações por e-mail | 🔜 Planejado |
 | Painel do técnico (front-end) | 🔜 Planejado |
@@ -110,7 +110,8 @@ A documentação Swagger em `http://localhost:8080/swagger-ui.html`
 | GET | `/auth/me` | autenticado | Dados do usuário logado |
 | POST | `/chamados` | autenticado | Abre chamado |
 | GET | `/chamados` | autenticado | Fila (técnico/admin) ou meus chamados (usuário) |
-| GET | `/chamados/{id}` | autenticado | Detalhe |
+| GET | `/chamados/{id}` | autenticado | Detalhe (para técnico, inclui `alertaAtendimentoSimultaneo` e quem mais está no chamado) |
+| DELETE | `/chamados/{id}/visualizacao` | técnico/admin | Saiu da tela do chamado (encerra o alerta) |
 | PATCH | `/chamados/{id}/assumir` | técnico/admin | Assume o chamado |
 | PATCH | `/chamados/{id}/status` | técnico/admin (usuário só FECHADO) | Muda status |
 | PATCH | `/chamados/{id}/prioridade` | técnico/admin | Muda prioridade e recalcula SLA |
